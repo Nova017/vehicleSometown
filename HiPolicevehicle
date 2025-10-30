@@ -7,7 +7,7 @@ if not localPlayer then
 end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("ทำตามคำพูดถ้ายังไม่เลิกยุ่งมีให้อีก ของขวัญให้ตำรวจ", "BloodTheme") 
+local Window = Library.CreateLib("ของขวัญให้ตำรวจ ทำตามคำพูดถ้ายังไม่เลิกยุ่งมีให้อีก", "BloodTheme") 
 
 local itemUiElements = {} 
 
