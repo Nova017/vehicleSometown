@@ -7,7 +7,15 @@ if not localPlayer then
 end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("ของขวัญให้ตำรวจ ทำตามคำพูดถ้ายังไม่เลิกยุ่งมีให้อีก", "BloodTheme") 
+local Window = Library.CreateLib("ของขวัญให้ตำรวจ", "BloodTheme") 
+
+-- (ใหม่) สร้างแท็บหลักสำหรับตั้งค่าการพับหน้าจอ
+local mainTab = Window:NewTab("Main")
+local mainSection = mainTab:NewSection("ตั้งค่า")
+mainSection:NewLabel("สคริปต์ทำงานแล้ว (โหมด Tab ต่อไอเท็ม)")
+mainSection:NewKeybind("พับหน้าจอ (Toggle UI)", "กดเพื่อตั้งปุ่ม (ค่าเริ่มต้น: P)", Enum.KeyCode.P, function()
+	Library:ToggleUI()
+end)
 
 local itemUiElements = {} 
 
@@ -124,11 +132,12 @@ local function initializeInventory()
 
     if not inventoryFolder then
         warn("ไม่พบโฟลเดอร์ Inventory")
-        local errorTab = Window:NewTab("Error")
-        errorTab:NewSection("Error"):NewLabel("ไม่พบโฟลเดอร์ Inventory")
+        -- (แก้ไข) เรามีแท็บ Main อยู่แล้ว ไม่ต้องสร้างแท็บ Error
+        mainSection:NewLabel("ไม่พบโฟลเดอร์ Inventory!")
         return
     end
     
+    -- นี่คือส่วนที่ "เช็คตลอด" อยู่แล้ว
     inventoryFolder.ChildAdded:Connect(function(item)
         if not itemUiElements[item] then
             print("ไอเท็มเพิ่ม, สร้างแท็บ: ", item.Name)
@@ -142,6 +151,7 @@ local function initializeInventory()
         end
     end)
 
+    -- นี่คือส่วนที่ "เช็คตลอด" อยู่แล้ว
     inventoryFolder.ChildRemoved:Connect(function(item)
         local tabToRemove = itemUiElements[item] 
         if tabToRemove then
